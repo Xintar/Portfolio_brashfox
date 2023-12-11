@@ -33,6 +33,7 @@ class FotoDescription(models.Model):
         null=True,
         verbose_name='Data aktualizacji',
     )
+    image = models.ImageField(upload_to='./static/images/portfolio')
     foto_category = models.ForeignKey(FotoCategory, on_delete=models.CASCADE)
 
 
@@ -45,7 +46,7 @@ class FotoTags(models.Model):
 
 
 class BlogPost(models.Model):
-    author = models.OneToOneField(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(
         max_length=255,
         verbose_name='Tytuł wpisu',
@@ -90,4 +91,24 @@ class PostComments(models.Model):
     edited = models.DateTimeField(
         null=True,
         verbose_name='Data aktualizacji edycji',
+    )
+
+
+class Message(models.Model):
+    name = models.CharField(
+        max_length=64,
+        verbose_name='Imię',
+    )
+    email = models.EmailField(
+        verbose_name='E-mail',
+    )
+    topic = models.CharField(
+        max_length=64,
+        verbose_name='Temat',
+    )
+    message = models.TextField(
+        verbose_name='Wiadomość'
+    )
+    created = models.DateTimeField(
+        default=timezone.now
     )

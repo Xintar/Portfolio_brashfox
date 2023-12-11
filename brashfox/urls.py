@@ -16,7 +16,27 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from brashfox_app.views import (
+    IndexView,
+    PortfolioView,
+    AboutMeView,
+    ContactView,
+    BlogView,
+    PostDetailView,
+    LoginView,
+    LogoutView,
+    AddFotosView,
+)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', IndexView.as_view(), name='start'),
+    path('portfolio/', PortfolioView.as_view()),
+    path('about-me/', AboutMeView.as_view()),
+    path('contact/', ContactView.as_view()),
+    path('blog/', BlogView.as_view()),
+    path('post/<str:slug>/', PostDetailView.as_view()),
+    path('login/', LoginView.as_view()),
+    path('logout/', LogoutView.as_view()),
+    path('add-fotos/', AddFotosView.as_view(), name='addfot'),
 ]

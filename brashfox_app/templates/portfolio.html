@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} Portfolio {% endblock title %}
+{% block content %}
+   <h1>Moje prace</h1>
+   <table>
+      <tbody>
+         {% for foto in list_fotos %}
+            <tr><td><a href="/{{foto}}/">
+                  <img src="{% static 'images/{{foto}}' %}">
+            </a></td></tr>
+         {% endfor %}
+
+      </tbody>
+   </table>
+{% endblock %}
