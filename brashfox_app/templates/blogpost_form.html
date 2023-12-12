@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %} Dodaj post {% endblock title %}
+{% block content %}
+    <h1>Dodaj post</h1>
+    <form action="" method="post">
+        {% csrf_token %}
+        <table>
+            {{ form }}
+<!--            <tr>-->
+<!--                <td><label for="title">Tytuł:</label></td>-->
+<!--                <td>{{ form.title }}</td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td><label for="post">Treść:</label></td>-->
+<!--                <td>{{ form.post }}</td>-->
+<!--            </tr>-->
+        </table>
+        <button type="submit">Wyślij</button>
+    </form>
+{% endblock %}

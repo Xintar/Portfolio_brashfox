@@ -3,7 +3,7 @@ from os import listdir
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic.edit import CreateView
+from django.views.generic import FormView, CreateView, DeleteView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import authenticate, login, logout
 from django.core.files.uploadedfile import InMemoryUploadedFile
@@ -25,9 +25,10 @@ class PortfolioView(View):
 class AddFotosView(LoginRequiredMixin, CreateView):
     model = FotoDescription
     fields = ['name', 'author']
+    reverse_lazy('/add-fotos/')
 
-    def get_success_url(self):
-        return reverse_lazy('addfot')
+    # def get_success_url(self):
+    #     return reverse_lazy('addfot')
 
 
 class AboutMeView(View):
@@ -85,6 +86,14 @@ class PostDetailView(View):
 
         }
         return render(request, 'post_detail.html', ctx)
+
+
+class AddPostView(LoginRequiredMixin, CreateView):
+    model = BlogPost
+    fields = ['title', 'post']
+
+    def get_success_url(self):
+        reverse_lazy('start')
 
 
 class LoginView(View):

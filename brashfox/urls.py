@@ -23,6 +23,7 @@ from brashfox_app.views import (
     ContactView,
     BlogView,
     PostDetailView,
+    AddPostView,
     LoginView,
     LogoutView,
     AddFotosView,
@@ -36,7 +37,8 @@ urlpatterns = [
     path('contact/', ContactView.as_view()),
     path('blog/', BlogView.as_view()),
     path('post/<str:slug>/', PostDetailView.as_view()),
+    path('add-post/', AddPostView.as_view()),
     path('login/', LoginView.as_view()),
     path('logout/', LogoutView.as_view()),
-    path('add-fotos/', AddFotosView.as_view(), name='addfot'),
+    path('add-fotos/', AddFotosView.as_view(), name='add-fotos'),
 ]
