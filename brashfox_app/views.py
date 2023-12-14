@@ -7,6 +7,7 @@ from django.views.generic import FormView, CreateView, DeleteView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import authenticate, login, logout
 from django.core.files.uploadedfile import InMemoryUploadedFile
+from django.db.models import ImageField
 
 from brashfox_app.forms import ContactForm, LoginForm
 from .models import Message, BlogPost, FotoDescription
@@ -18,14 +19,26 @@ class IndexView(View):
 
 
 class PortfolioView(View):
+
     def get(self, request):
-        return render(request, 'portfolio.html')
+        fotos = FotoDescription.objects.all()
+        ctx = {
+            'fotos': fotos,
+        }
+
+        return render(request, 'portfolio.html', ctx)
 
 
 class AddFotosView(LoginRequiredMixin, CreateView):
     model = FotoDescription
-    fields = ['name', 'author']
-    reverse_lazy('/add-fotos/')
+    fields = ['name', 'author', 'ivent', 'image', 'foto_category']
+    template_name = 'fotodescription_form.html'
+    success_url = reverse_lazy('start')
+
+    def form_valid(self, form):
+        form.instance.image = self.request.FILES['image']
+        self.object = form.save()
+        return super().form_valid(form)
 
     # def get_success_url(self):
     #     return reverse_lazy('addfot')
@@ -90,10 +103,9 @@ class PostDetailView(View):
 
 class AddPostView(LoginRequiredMixin, CreateView):
     model = BlogPost
-    fields = ['title', 'post']
-
-    def get_success_url(self):
-        reverse_lazy('start')
+    fields = ['author', 'title', 'post', 'slug']
+    template_name = 'blogpost_form.html'
+    success_url = reverse_lazy('start')
 
 
 class LoginView(View):

@@ -9,6 +9,9 @@ class FotoCategory(models.Model):
         verbose_name='Kategoria zdjęcia',
     )
 
+    def __str__(self):
+        return self.category
+
 
 class FotoDescription(models.Model):
     name = models.CharField(
@@ -30,10 +33,14 @@ class FotoDescription(models.Model):
         verbose_name='Data powstania opisu',
     )
     edited = models.DateTimeField(
+        default=timezone.now,
         null=True,
         verbose_name='Data aktualizacji',
     )
-    image = models.ImageField(upload_to='./static/images/portfolio')
+    image = models.ImageField(
+        upload_to='./static/images/portfolio',
+        verbose_name='Zdjęcie',
+    )
     foto_category = models.ForeignKey(FotoCategory, on_delete=models.CASCADE)
 
 
