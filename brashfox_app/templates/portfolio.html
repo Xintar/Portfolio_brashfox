@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} Portfolio {% endblock title %}
+{% block content %}
+   <h1>Moje prace</h1>
+   <table>
+      <tbody>
+        {% for foto in fotos %}
+<!--            {% if loop.index == 0 %}-->
+               <tr>
+<!--            {% endif %}-->
+               <td>
+                   <a href="/{{foto.pk}}/">
+                     <img width="30%" src='{{foto.image.url}}'><br>
+                   </a>
+                   <strong>Opis:</strong>{{ foto.name }}<br>
+                   <strong>Autor:</strong>{{ foto.autor}}<br>
+                   <strong>Wydarzenie:</strong>{{ foto.ivent}}<br>
+               </td>
+<!--            {% if loop.index == 2 %}-->
+               </tr>
+<!--            {% endif %}-->
+        {% endfor %}
+
+      </tbody>
+   </table>
+{% endblock %}

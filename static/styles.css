@@ -1,0 +1,53 @@
+a:link
+{
+   color: black;
+   text-decoration: none;
+}
+
+a:visited
+{
+   color: black;
+}
+
+a:hover
+{
+   color: blue;
+}
+
+a:active
+{
+   color: red;
+}
+
+.logo {
+    padding: 3px 3px;
+    border-radius: 6px;
+    box-shadow: 0 2px 5px grey;
+    display: inline-block;
+}
+
+.logo img {
+    height: 6em;
+}
+
+.name_owner {
+    font-size: 16px;
+    display: inline-block;
+}
+
+#base_header {
+    padding: 1em;
+    width: 60%;
+}
+
+
+
+.about_me_page {
+    padding: 1px 1px;
+    border-radius: 6px;
+    display: inline;
+}
+
+#about_me_foto {
+    height: 30em;
+}

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} Kontakt {% endblock title %}
+{% block content %}
+   Skontaktuj się ze mną
+   <form action="" method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Wyślij</button>
+   </form>
+   {{ coment }}
+{% endblock %}
