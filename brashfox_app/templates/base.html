@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pl-PL">
+    <head>
+        <meta charset="utf-8">
+        <title>{% block title %}{% endblock %} | Fox Brush Marta Chojecka</title>
+        <link rel="stylesheet" href="{% static 'styles.css' %}">
+    </head>
+    <body>
+        <div class="logo"><a href="/">
+            <img src="{% static 'images/logo_foxbrush.jpg' %}">
+            <h3 class="name_owner"> MARTA CHOJECKA <br /> MakeUp Artist </h3>
+        </a></div>
+
+        <table id="base_header">
+            <thead>
+                <tr>
+                    <th><a href="/portfolio/"> Portfolio </a></th>
+                    <th><a href="/about-me/"> O mnie </a></th>
+                    <th><a href="/contact/"> Kontakt </a></th>
+                    <th><a href="/blog/"> Blog </a></th>
+                </tr>
+                {% if user.is_authenticated %}
+                    <tr>
+                        <td><a href="/add-fotos/">Dodaj zdjęcie</a></td>
+                        <td><a href="/add-post/">Dodaj post</a></td>
+                        <td><a href="/logout/">Wyloguj</a></td>
+                    </tr>
+                {% endif %}
+            </thead>
+        </table>
+
+        {% block content %}Start{% endblock %}
+        {% block footer %}{% endblock %}
+    </body>
+</html>

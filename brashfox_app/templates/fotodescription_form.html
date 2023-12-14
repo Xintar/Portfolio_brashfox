@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} Dodaj zdjęcie {% endblock title %}
+{% block content %}
+    <h1>Dodaj zdjęcie</h1>
+    <form action="" method="post">
+        {% csrf_token %}
+        <table>
+            {{ form }}
+        </table>
+        <button type="submit">Wyślij</button>
+    </form>
+{% endblock %}
