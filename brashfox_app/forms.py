@@ -19,7 +19,3 @@ class ContactForm(forms.Form):
         initial=datetime.datetime.now(),
         required=False
     )
-
-
-# class AddFotosForm(forms.Form):
-#     pass
