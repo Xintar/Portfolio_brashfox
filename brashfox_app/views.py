@@ -2,7 +2,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import CreateView, DeleteView, UpdateView
+from django.views.generic import CreateView, DeleteView, UpdateView, FormView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import authenticate, login, logout
 
@@ -46,9 +46,6 @@ class AddFotosView(LoginRequiredMixin, CreateView):
         self.object = form.save()
         return super().form_valid(form)
 
-    # def get_success_url(self):
-    #     return reverse_lazy('addfot')
-
 
 class EditFotosView(LoginRequiredMixin, UpdateView):
     model = FotoDescription
@@ -88,23 +85,19 @@ class ContactView(View):
     def post(self, request):
         form = ContactForm(request.POST)
         if form.is_valid():
-            # name = form.cleaned_data['name']
-            # email = form.cleaned_data['email']
-            # topic = form.cleaned_data['topic']
-            # message = form.cleaned_data['message']
             new_message = Message.objects.create(**form.cleaned_data)
-            ctx = {
-                'coment': 'Dziękuję za wiadomość',
-                'form': form
-            }
-
-            return render(request, 'contact.html', ctx)
+            return redirect('contact-succes')
         else:
             ctx = {
                 'form': form,
                 'coment': 'Proszę o poprawne dane'
             }
             return render(request, 'contact.html', ctx)
+
+
+class ContactSucessView(View):
+    def get(self, request):
+        return render(request, 'contact_succes.html')
 
 
 class BlogView(View):
@@ -130,14 +123,19 @@ class PostDetailView(View):
 
 class AddPostView(LoginRequiredMixin, CreateView):
     model = BlogPost
-    fields = ['author', 'title', 'post', 'slug']
+    fields = ['title', 'post', 'slug']
     template_name = 'blogpost_form.html'
     success_url = reverse_lazy('start')
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        form.save()
+        return redirect(self.success_url)
 
 
 class EditPostView(LoginRequiredMixin, UpdateView):
     model = BlogPost
-    fields = ['author', 'title', 'post']
+    fields = ['title', 'post']
     template_name = 'blogpost_update_form.html'
 
     def get_object(self, **kwargs):

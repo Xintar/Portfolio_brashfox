@@ -28,12 +28,12 @@ class FotoDescription(models.Model):
         verbose_name='Z jakiego wydarzenia jest to zdjęcie',
     )
     created = models.DateTimeField(
-        default=timezone.now,
+        auto_now_add=True,
         editable=False,
         verbose_name='Data powstania opisu',
     )
     edited = models.DateTimeField(
-        default=timezone.now,
+        auto_now=True,
         null=True,
         verbose_name='Data aktualizacji',
     )
@@ -43,6 +43,9 @@ class FotoDescription(models.Model):
     )
     foto_category = models.ForeignKey(FotoCategory, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.name
+
 
 class FotoTags(models.Model):
     foto_description = models.ManyToManyField(FotoDescription)
@@ -50,6 +53,9 @@ class FotoTags(models.Model):
         max_length=60,
         verbose_name='Tag zdjęcia',
     )
+
+    def __str__(self):
+        return self.tags
 
 
 class BlogPost(models.Model):
@@ -62,17 +68,20 @@ class BlogPost(models.Model):
         verbose_name='Treś wpisu',
     )
     created = models.DateTimeField(
-        default=timezone.now,
+        auto_now_add=True,
         editable=False,
         verbose_name='Data powstania wpisu',
     )
     edited = models.DateTimeField(
-        null=True,
+        auto_now=True,
         verbose_name='Data aktualizacji wpisu',
     )
     slug = models.SlugField(
         max_length=255,
     )
+
+    def __str__(self):
+        return self.title
 
 
 class PostCategory(models.Model):
@@ -82,23 +91,31 @@ class PostCategory(models.Model):
     )
     blog_post = models.ManyToManyField(BlogPost)
 
+    def __str__(self):
+        return self.category
+
 
 class PostComments(models.Model):
     blog_post = models.ForeignKey(BlogPost, on_delete=models.CASCADE)
+    comment = models.TextField(
+        verbose_name='Komentarza'
+    )
     author = models.CharField(
         max_length=255,
         verbose_name='Nazwa komentującego',
-
     )
     created = models.DateTimeField(
-        default=timezone.now,
+        auto_now_add=True,
         editable=False,
         verbose_name='Data powstania komnentarza',
     )
     edited = models.DateTimeField(
-        null=True,
+        auto_now=True,
         verbose_name='Data aktualizacji edycji',
     )
+
+    def __str__(self):
+        return self.comment
 
 
 class Message(models.Model):
@@ -117,5 +134,8 @@ class Message(models.Model):
         verbose_name='Wiadomość'
     )
     created = models.DateTimeField(
-        default=timezone.now
+        auto_now_add=True
     )
+
+    def __str__(self):
+        return self.topic

@@ -60,7 +60,6 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [],
         'APP_DIRS': True,
-        # 'ENGINE': 'django.template.engine.TemplateEngine',
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -134,6 +133,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
-
 
 FILE_UPLOAD_MAX_MEMORY_SIZE = 10000000
