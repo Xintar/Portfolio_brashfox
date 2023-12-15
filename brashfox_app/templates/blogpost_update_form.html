@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} Logowanie {% endblock title %}
+{% block content %}
+    <form action="" method="post">
+        {% csrf_token %}
+        <table>
+            {{ form }}
+        </table>
+        <input type="submit" value="Zapisz">
+    </form>
+{% endblock %}

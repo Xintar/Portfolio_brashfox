@@ -1,13 +1,9 @@
-from os import listdir
-
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import FormView, CreateView, DeleteView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import authenticate, login, logout
-from django.core.files.uploadedfile import InMemoryUploadedFile
-from django.db.models import ImageField
 
 from brashfox_app.forms import ContactForm, LoginForm
 from .models import Message, BlogPost, FotoDescription
@@ -22,12 +18,20 @@ class PortfolioView(View):
 
     def get(self, request):
         fotos = FotoDescription.objects.all()
-
         ctx = {
             'fotos': fotos,
         }
 
         return render(request, 'portfolio.html', ctx)
+
+
+class DetailFotoView(View):
+    def get(self, request, id):
+        foto = get_object_or_404(FotoDescription, id=id)
+        ctx = {
+            'foto': foto
+        }
+        return render(request, 'foto_detail.html', ctx)
 
 
 class AddFotosView(LoginRequiredMixin, CreateView):
@@ -115,6 +119,7 @@ class PostDetailView(View):
         ctx = {
             'title': blog_post.title,
             'post': blog_post.post,
+            'pk': blog_post.pk
 
         }
         return render(request, 'post_detail.html', ctx)
@@ -125,6 +130,20 @@ class AddPostView(LoginRequiredMixin, CreateView):
     fields = ['author', 'title', 'post', 'slug']
     template_name = 'blogpost_form.html'
     success_url = reverse_lazy('start')
+
+
+class EditPostView(LoginRequiredMixin, UpdateView):
+    model = BlogPost
+    fields = ['author', 'title', 'post']
+    template_name = 'blogpost_update_form.html'
+
+    def get_object(self, **kwargs):
+        pk = self.kwargs.get('pk')
+        return BlogPost.objects.get(pk=pk)
+
+    def form_valid(self, form):
+        form.save()
+        return redirect('blog')
 
 
 class LoginView(View):

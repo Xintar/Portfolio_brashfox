@@ -3,5 +3,10 @@
 {% block title %} {{ post.title }} {% endblock title %}
 {% block content %}
     <h1>{{title}}</h1>
-    {{post}}
+    {{post}}<br><br>
+    {% if user.is_authenticated %}
+        <a href="/edit-post/{{pk}}/">
+            Edytuj<br>
+        </a>
+    {% endif %}
 {% endblock %}

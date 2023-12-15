@@ -51,3 +51,8 @@ a:active
 #about_me_foto {
     height: 30em;
 }
+
+.foto_detail {
+    text-align: center;
+    font-weight: bold;
+}

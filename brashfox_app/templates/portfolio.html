@@ -5,31 +5,26 @@
    <h1>Moje prace</h1>
    <table>
       <tbody>
-        {% for foto in fotos %}
-<!--            {% if loop.index == 0 %}-->
-               <tr>
-<!--            {% endif %}-->
-                   <td>
-                       <a href="/{{foto.pk}}/">
-                         <img width="30%" src='{{foto.image.url}}'><br>
-                       </a>
-                       <strong>Opis:</strong>{{ foto.name }}<br>
-                       <strong>Autor:</strong>{{ foto.autor}}<br>
-                       <strong>Wydarzenie:</strong>{{ foto.ivent}}<br>
-                       {{ loop.count }}
-                       {% if user.is_authenticated %}
-                            <a href="/fotos/edit/{{foto.pk}}/">
-                                Edytuj<br>
-                            </a>
-                       {% endif %}
-                   </td>
-
-
-<!--            {% if loop.index == 2 %}-->
-               </tr>
-<!--            {% endif %}-->
-        {% endfor %}
-
+        <tr>
+            {% for foto in fotos %}
+                <td>
+                    <a href="/fotos/detail/{{foto.pk}}/">
+                        <img width="100%" src='{{foto.image.url}}'><br>
+                    </a>
+                    <strong>Opis: </strong>{{ foto.name }}<br>
+                    <strong>Autor: </strong>{{ foto.author}}<br>
+                    <strong>Wydarzenie: </strong>{{ foto.ivent}}<br>
+                    {% if user.is_authenticated %}
+                        <a href="/fotos/edit/{{foto.pk}}/">
+                            Edytuj<br>
+                        </a>
+                    {% endif %}
+                </td>
+                {% if forloop.counter|divisibleby:3 and not forloop.last %}
+                    </tr><tr>
+                {% endif %}
+            {% endfor %}
+        </tr>
       </tbody>
    </table>
 {% endblock %}

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} Portfolio | {{ foto.name }} {% endblock title %}
+{% block content %}
+   <h3 class="foto_detail">{{ foto.name }}</h3>
+   <a href="{% url 'portfolio' %}">
+       <img width="100%" src='{{foto.image.url}}'><br>
+   </a>
+        <p class="foto_detail">Opis: {{ foto.name }}</p>
+        <p class="foto_detail">Autor: {{ foto.author }}</p>
+        <p class="foto_detail">Wydarzenie: {{ foto.ivent }}</p>
+        {% if user.is_authenticated %}
+        <a href="/fotos/edit/{{foto.pk}}/">
+            Edytuj<br>
+        </a>
+        {% endif %}
+{% endblock %}

@@ -24,8 +24,10 @@ from brashfox_app.views import (
     BlogView,
     PostDetailView,
     AddPostView,
+    EditPostView,
     LoginView,
     LogoutView,
+    DetailFotoView,
     AddFotosView,
     EditFotosView,
 )
@@ -33,14 +35,16 @@ from brashfox_app.views import (
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', IndexView.as_view(), name='start'),
-    path('portfolio/', PortfolioView.as_view(), name='portfolio'),
     path('about-me/', AboutMeView.as_view()),
     path('contact/', ContactView.as_view()),
-    path('blog/', BlogView.as_view()),
+    path('blog/', BlogView.as_view(), name='blog'),
     path('post/<str:slug>/', PostDetailView.as_view()),
     path('add-post/', AddPostView.as_view(), name='add-post'),
+    path('edit-post/<int:pk>/', EditPostView.as_view(), name='edit-post'),
     path('login/', LoginView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
+    path('portfolio/', PortfolioView.as_view(), name='portfolio'),
+    path('fotos/detail/<int:id>/', DetailFotoView.as_view(), name='foto-detail'),
     path('fotos/add/', AddFotosView.as_view(), name='add-fotos'),
     path('fotos/edit/<int:pk>/', EditFotosView.as_view(), name='edit-fotos')
 ]
