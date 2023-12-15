@@ -1,6 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
+from django.utils.text import slugify
 from django.views import View
 from django.views.generic import CreateView, DeleteView, UpdateView, FormView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -123,12 +124,13 @@ class PostDetailView(View):
 
 class AddPostView(LoginRequiredMixin, CreateView):
     model = BlogPost
-    fields = ['title', 'post', 'slug']
+    fields = ['title', 'post']
     template_name = 'blogpost_form.html'
     success_url = reverse_lazy('start')
 
     def form_valid(self, form):
         form.instance.author = self.request.user
+        form.instance.slug = slugify(form.instance.title)
         form.save()
         return redirect(self.success_url)
 
