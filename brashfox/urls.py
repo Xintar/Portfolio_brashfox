@@ -25,11 +25,13 @@ from brashfox_app.views import (
     PostDetailView,
     AddPostView,
     EditPostView,
+    DeletePostView,
     LoginView,
     LogoutView,
     DetailFotoView,
     AddFotosView,
     EditFotosView,
+    DeleteFotosView,
 )
 
 urlpatterns = [
@@ -41,10 +43,12 @@ urlpatterns = [
     path('post/<str:slug>/', PostDetailView.as_view()),
     path('add-post/', AddPostView.as_view(), name='add-post'),
     path('edit-post/<int:pk>/', EditPostView.as_view(), name='edit-post'),
+    path('delete-post/<int:pk>/', DeletePostView.as_view(), name='delete-post'),
     path('login/', LoginView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('portfolio/', PortfolioView.as_view(), name='portfolio'),
     path('fotos/detail/<int:id>/', DetailFotoView.as_view(), name='foto-detail'),
     path('fotos/add/', AddFotosView.as_view(), name='add-fotos'),
-    path('fotos/edit/<int:pk>/', EditFotosView.as_view(), name='edit-fotos')
+    path('fotos/edit/<int:pk>/', EditFotosView.as_view(), name='edit-fotos'),
+    path('fotos/delete/<int:pk>/', DeleteFotosView.as_view(), name='delete-fotos'),
 ]

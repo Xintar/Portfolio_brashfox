@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import FormView, CreateView, DeleteView, UpdateView
+from django.views.generic import CreateView, DeleteView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import authenticate, login, logout
 
@@ -64,7 +64,9 @@ class EditFotosView(LoginRequiredMixin, UpdateView):
 
 
 class DeleteFotosView(LoginRequiredMixin, DeleteView):
-    pass
+    model = FotoDescription
+    template_name = 'fotodescription_confirm_delete.html'
+    success_url = reverse_lazy('portfolio')
 
 
 class AboutMeView(View):
@@ -144,6 +146,12 @@ class EditPostView(LoginRequiredMixin, UpdateView):
     def form_valid(self, form):
         form.save()
         return redirect('blog')
+
+
+class DeletePostView(LoginRequiredMixin, DeleteView):
+    model = BlogPost
+    template_name = 'blogpost_confirm_delete.html'
+    success_url = reverse_lazy('blog')
 
 
 class LoginView(View):
