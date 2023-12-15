@@ -19,6 +19,9 @@
                     <th><a href="/about-me/"> O mnie </a></th>
                     <th><a href="/contact/"> Kontakt </a></th>
                     <th><a href="/blog/"> Blog </a></th>
+                    {% if not user.is_authenticated %}
+                        <th><a href="/register/"> Rejestracja </a></th>
+                    {% endif %}
                 </tr>
                 {% if user.is_authenticated %}
                     <tr>
