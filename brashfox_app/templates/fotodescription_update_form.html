@@ -1,13 +1,12 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %} Dodaj zdjęcie {% endblock title %}
+{% block title %} Logowanie {% endblock title %}
 {% block content %}
-    <h1>Dodaj zdjęcie</h1>
     <form action="" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <table>
             {{ form }}
         </table>
-        <button type="submit">Wyślij</button>
+        <input type="submit" value="Zapisz">
     </form>
 {% endblock %}

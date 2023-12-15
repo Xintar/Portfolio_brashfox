@@ -22,6 +22,7 @@ class PortfolioView(View):
 
     def get(self, request):
         fotos = FotoDescription.objects.all()
+
         ctx = {
             'fotos': fotos,
         }
@@ -33,7 +34,7 @@ class AddFotosView(LoginRequiredMixin, CreateView):
     model = FotoDescription
     fields = ['name', 'author', 'ivent', 'image', 'foto_category']
     template_name = 'fotodescription_form.html'
-    success_url = reverse_lazy('start')
+    success_url = reverse_lazy('add-fotos')
 
     def form_valid(self, form):
         form.instance.image = self.request.FILES['image']
@@ -42,6 +43,24 @@ class AddFotosView(LoginRequiredMixin, CreateView):
 
     # def get_success_url(self):
     #     return reverse_lazy('addfot')
+
+
+class EditFotosView(LoginRequiredMixin, UpdateView):
+    model = FotoDescription
+    fields = ['name', 'author', 'ivent', 'image']
+    template_name = 'fotodescription_update_form.html'
+
+    def get_object(self, **kwargs):
+        pk = self.kwargs.get('pk')
+        return FotoDescription.objects.get(pk=pk)
+
+    def form_valid(self, form):
+        form.save()
+        return redirect('portfolio')
+
+
+class DeleteFotosView(LoginRequiredMixin, DeleteView):
+    pass
 
 
 class AboutMeView(View):
@@ -110,8 +129,11 @@ class AddPostView(LoginRequiredMixin, CreateView):
 
 class LoginView(View):
     def get(self, request):
-        form = LoginForm()
-        return render(request, 'login.html', {'form': form})
+        if request.user.is_authenticated:
+            return render(request, "logged.html", {"user": request.user})
+        else:
+            form = LoginForm()
+            return render(request, 'login.html', {'form': form})
 
     def post(self, request):
         form = LoginForm(request.POST)

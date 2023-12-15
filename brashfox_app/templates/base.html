@@ -22,8 +22,8 @@
                 </tr>
                 {% if user.is_authenticated %}
                     <tr>
-                        <td><a href="/add-fotos/">Dodaj zdjęcie</a></td>
-                        <td><a href="/add-post/">Dodaj post</a></td>
+                        <td><a href="{% url 'add-fotos' %}">Dodaj zdjęcie</a></td>
+                        <td><a href="{% url 'add-post' %}">Dodaj post</a></td>
                         <td><a href="/logout/">Wyloguj</a></td>
                     </tr>
                 {% endif %}
