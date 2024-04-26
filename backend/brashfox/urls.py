@@ -38,6 +38,7 @@ from brashfox_app.views import (
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api-auth/', include('rest_framework.urls')),
     path('api/', include('brashfox.api.urls')),
     path('', IndexView.as_view(), name='start'),
     path('about-me/', AboutMeView.as_view()),
