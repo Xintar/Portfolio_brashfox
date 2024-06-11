@@ -1,8 +1,5 @@
 from django.contrib.auth.models import Group, User
-from rest_framework.serializers import (
-    ModelSerializer, 
-    HyperlinkedModelSerializer,
-)
+from rest_framework.serializers import HyperlinkedModelSerializer
 
 from brashfox_app.models import (
     FotoCategory,
