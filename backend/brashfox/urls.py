@@ -38,6 +38,7 @@ from brashfox_app.views import (
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    
     path('', IndexView.as_view(), name='start'),
     path('about-me/', AboutMeView.as_view()),
     path('contact/', ContactView.as_view(), name='contact'),
@@ -57,4 +58,5 @@ urlpatterns = [
     path('fotos/delete/<int:pk>/', DeleteFotosView.as_view(), name='delete-fotos'),
     
     path('api/', include('brashfox.api.urls')),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]
