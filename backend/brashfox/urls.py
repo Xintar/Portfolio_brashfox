@@ -38,7 +38,6 @@ from brashfox_app.views import (
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('brashfox.api.urls')),
     path('', IndexView.as_view(), name='start'),
     path('about-me/', AboutMeView.as_view()),
     path('contact/', ContactView.as_view(), name='contact'),
@@ -56,4 +55,6 @@ urlpatterns = [
     path('fotos/add/', AddFotosView.as_view(), name='add-fotos'),
     path('fotos/edit/<int:pk>/', EditFotosView.as_view(), name='edit-fotos'),
     path('fotos/delete/<int:pk>/', DeleteFotosView.as_view(), name='delete-fotos'),
+    
+    path('api/', include('brashfox.api.urls')),
 ]
