@@ -1,0 +1,14 @@
+Django
+djangorestframework
+markdown
+django-filter
+django-cors-headers
+psycopg2-binary
+python-dateutil
+six
+text-unidecode
+ipython
+flake8
+pytest
+pytest-django
+Pillow
