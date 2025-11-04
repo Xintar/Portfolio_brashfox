@@ -1,14 +1,14 @@
-# 🏛️ API Architecture - BrashFox Portfolio
+# 🏛️ API Architecture - BrashFox Portfolio (Makeup Artist)
 
-**Data:** 4 listopada 2025  
-**Wersja:** 1.0 (po refactoringu Etap 1-6)  
+**Date:** November 4, 2025  
+**Version:** 1.0 (after refactoring Stages 1-6)  
 **Status:** Production-ready
 
 ---
 
-## 📐 Architektura warstwowa
+## 📐 Layered Architecture
 
-API zbudowane jest w architekturze warstwowej (Layered Architecture) z czystym podziałem odpowiedzialności:
+API built with layered architecture with clean separation of concerns:
 
 ```
 ┌─────────────────────────────────────────────┐

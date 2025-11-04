@@ -1,61 +1,52 @@
-# 📁 Struktura projektu BrashFox Portfolio
+# 📁 Project Structure - BrashFox Portfolio (Makeup Artist)
 
-**Data aktualizacji:** 4 listopada 2025  
+**Updated:** November 4, 2025  
 **Status:** Production-ready dual-mode architecture (Django Templates + REST API)  
-**Refactoring:** Modular structure (Etap 1-6 zakończone)
+**Refactoring:** Modular structure (Stages 1-6 completed)
 
 ---
 
-## 🏗️ Architektura
+## 🏗️ Architecture
 
-Projekt działa w **dwóch trybach równocześnie**:
+Project operates in **two modes simultaneously**:
 
-1. **Django Templates (SSR)** - Tradycyjne widoki Django dla SEO i kompatybilności
-2. **REST API (SPA)** - Nowoczesne API dla React frontend
+1. **Django Templates (SSR)** - Traditional Django views for SEO and compatibility
+2. **REST API (SPA)** - Modern API for React frontend (makeup portfolio showcase)
 
-### Zasady architektury:
-- **Separation of Concerns** - Każda warstwa ma swoją odpowiedzialność
-- **DRY** - Kod nie duplikuje się (utils, constants)
-- **Modular** - Kod podzielony na małe, łatwe w utrzymaniu moduły (~40-100 linii/plik)
-- **Testable** - Logika biznesowa w Services, łatwa do testowania
-- **Scalable** - Przygotowana na wzrost (cache, throttling, pagination)
-
----
-
-## 🏗️ Architektura
-
-Projekt działa w **dwóch trybach równocześnie**:
-
-1. **Django Templates (SSR)** - Tradycyjne widoki Django dla SEO i kompatybilności
-2. **REST API (SPA)** - Nowoczesne API dla React frontend
+### Architecture Principles:
+- **Separation of Concerns** - Each layer has its own responsibility
+- **DRY** - No code duplication (utils, constants)
+- **Modular** - Code split into small, maintainable modules (~40-100 lines/file)
+- **Testable** - Business logic in Services, easy to test
+- **Scalable** - Ready for growth (cache, throttling, pagination)
 
 ---
 
 ## 📂 Backend (`/backend/`)
 
-### `brashfox/` - Konfiguracja Django
-- `settings.py` - Główna konfiguracja (Django + DRF + JWT + CORS)
-- `urls.py` - Routing główny (templates + API)
-- `local_settings.py` - Ustawienia lokalne (nie w repo)
+### `brashfox/` - Django Configuration
+- `settings.py` - Main configuration (Django + DRF + JWT + CORS)
+- `urls.py` - Main routing (templates + API)
+- `local_settings.py` - Local settings (not in repo)
 
-### `brashfox_app/` - Główna aplikacja
+### `brashfox_app/` - Main Application
 
 #### 🔴 LEGACY (Django Templates - SSR)
-- **`views.py`** (208 linii) - Widoki dla Django templates
-- **`forms.py`** - Formularze Django
-- **`templates/`** - Szablony HTML (Jinja2)
-- **`admin.py`** - Panel admina Django
+- **`views.py`** (208 lines) - Views for Django templates
+- **`forms.py`** - Django forms
+- **`templates/`** - HTML templates (Jinja2)
+- **`admin.py`** - Django admin panel
 
-#### 🟢 AKTYWNE (REST API) - **Modułowa struktura**
+#### 🟢 ACTIVE (REST API) - **Modular Structure**
 
-##### **`api/`** - Nowoczesne REST API (Production-ready)
+##### **`api/`** - Modern REST API (Production-ready)
 
 ```
 api/
-├── models/              # 🎯 Modele (253 linie w 5 plikach)
-│   ├── __init__.py      # Eksport wszystkich modeli
-│   ├── photo.py         # FotoDescription, FotoCategory, FotoTags
-│   ├── blog.py          # BlogPost, PostCategory
+├── models/              # 🎯 Models (253 lines in 5 files)
+│   ├── __init__.py      # Export all models
+│   ├── photo.py         # FotoDescription (makeup work), FotoCategory, FotoTags
+│   ├── blog.py          # BlogPost, PostCategory (beauty tips & tutorials)
 │   ├── comment.py       # PostComments
 │   └── message.py       # Message (contact form)
 │
@@ -124,16 +115,16 @@ api/
 
 ```
 src/
-├── components/          # Komponenty React
+├── components/          # React Components
 │   ├── Layout/         # Layout (Header, Footer, Navigation)
-│   ├── Common/         # Wspólne (LoadingSpinner, ErrorMessage)
+│   ├── Common/         # Common (LoadingSpinner, ErrorMessage)
 │   ├── Blog/           # Blog (PostCard, PostList, CommentSection)
-│   └── Portfolio/      # Portfolio (PhotoGrid, PhotoCard)
+│   └── Portfolio/      # Portfolio (MakeupGrid, MakeupCard, BeforeAfter)
 │
-├── pages/              # Strony (routing)
+├── pages/              # Pages (routing)
 │   ├── HomePage.jsx
-│   ├── BlogPage.jsx
-│   ├── PortfolioPage.jsx
+│   ├── BlogPage.jsx    # Beauty tips & tutorials
+│   ├── PortfolioPage.jsx  # Makeup work showcase
 │   ├── AboutPage.jsx
 │   ├── ContactPage.jsx
 │   ├── LoginPage.jsx
@@ -163,27 +154,27 @@ src/
 ## 🔌 Endpointy
 
 ### Django Templates (Legacy)
-- `http://localhost:8000/` - Strona główna
-- `http://localhost:8000/blog/` - Lista postów
-- `http://localhost:8000/portfolio/` - Galeria zdjęć
-- `http://localhost:8000/contact/` - Formularz kontaktowy
+- `http://localhost:8000/` - Home page
+- `http://localhost:8000/blog/` - Blog posts (beauty tips)
+- `http://localhost:8000/portfolio/` - Makeup work gallery
+- `http://localhost:8000/contact/` - Contact form
 - `http://localhost:8000/login/` - Logowanie
 - `http://localhost:8000/register/` - Rejestracja
 - `http://localhost:8000/admin/` - Panel admina
 
-### REST API (Aktywne)
+### REST API (Active)
 - `http://localhost:8000/api/` - API root
-- `http://localhost:8000/api/blog-posts/` - Posty (GET, POST)
-- `http://localhost:8000/api/blog-posts/{slug}/` - Szczegóły posta (GET, PUT, DELETE)
-- `http://localhost:8000/api/blog-posts/{slug}/comments/` - Komentarze do posta
-- `http://localhost:8000/api/photos/` - Zdjęcia (GET, POST)
-- `http://localhost:8000/api/photos/{id}/` - Szczegóły zdjęcia (GET, PUT, DELETE)
-- `http://localhost:8000/api/comments/` - Wszystkie komentarze (GET)
-- `http://localhost:8000/api/users/` - Użytkownicy (GET, POST)
-- `http://localhost:8000/api/users/me/` - Obecny użytkownik (GET)
-- `http://localhost:8000/api/contact/` - Kontakt (POST)
-- `http://localhost:8000/api/token/` - Logowanie JWT (POST)
-- `http://localhost:8000/api/token/refresh/` - Odświeżenie tokenu (POST)
+- `http://localhost:8000/api/blog-posts/` - Posts (GET, POST) - beauty tips & tutorials
+- `http://localhost:8000/api/blog-posts/{slug}/` - Post details (GET, PUT, DELETE)
+- `http://localhost:8000/api/blog-posts/{slug}/comments/` - Post comments
+- `http://localhost:8000/api/photos/` - Makeup work (GET, POST)
+- `http://localhost:8000/api/photos/{id}/` - Makeup work details (GET, PUT, DELETE)
+- `http://localhost:8000/api/comments/` - All comments (GET)
+- `http://localhost:8000/api/users/` - Users (GET, POST)
+- `http://localhost:8000/api/users/me/` - Current user (GET)
+- `http://localhost:8000/api/contact/` - Contact (POST)
+- `http://localhost:8000/api/token/` - JWT Login (POST)
+- `http://localhost:8000/api/token/refresh/` - Refresh token (POST)
 
 ### Dokumentacja API
 - `http://localhost:8000/api/schema/swagger/` - Swagger UI

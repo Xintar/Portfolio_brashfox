@@ -1,6 +1,6 @@
 # 📚 Documentation Index
 
-**BrashFox Portfolio - Complete Documentation**
+**BrashFox Portfolio - Complete Documentation for Makeup Artist Portfolio**
 
 ---
 

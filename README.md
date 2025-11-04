@@ -1,6 +1,6 @@
-# 📸 BrashFox Portfolio
+# � BrashFox Portfolio
 
-**Modern full-stack portfolio application for photographers and bloggers**
+**Modern full-stack portfolio application for makeup artists and beauty professionals**
 
 [![Django](https://img.shields.io/badge/Django-5.1.5-green.svg)](https://www.djangoproject.com/)
 [![DRF](https://img.shields.io/badge/DRF-3.15.2-red.svg)](https://www.django-rest-framework.org/)
@@ -12,8 +12,8 @@
 ## 🎯 Overview
 
 BrashFox Portfolio is a **dual-mode application** that combines:
-- 🖼️ **Photo Gallery** - Professional portfolio showcase
-- 📝 **Blog Platform** - Content management with comments
+- � **Portfolio Gallery** - Professional makeup work showcase
+- 📝 **Blog Platform** - Beauty tips, tutorials, and content management
 - 🔐 **User Authentication** - JWT-based secure access
 - 📱 **Responsive Design** - Works on all devices
 - 🚀 **Modern Stack** - React SPA + Django REST API
@@ -22,13 +22,17 @@ BrashFox Portfolio is a **dual-mode application** that combines:
 
 ## ✨ Features
 
-### Photography Portfolio
-- ✅ Photo gallery with categories and tags
+### Makeup Portfolio
+- ✅ Gallery with categories (bridal, editorial, special effects, etc.)
 - ✅ High-resolution image support (up to 10MB)
-- ✅ Photo metadata (author, event, description)
+- ✅ Work metadata (artist, event, technique, products used)
+- ✅ Before/After transformations
+- ✅ Tags for styles and techniques
 - ✅ Responsive image grid
 
 ### Blog Platform
+- ✅ Beauty tips and tutorials
+- ✅ Product reviews
 - ✅ Create, edit, delete blog posts
 - ✅ Auto-generated slugs for SEO
 - ✅ Comment system
@@ -215,12 +219,12 @@ Comprehensive documentation in [`docs/`](./docs/) folder:
 - `DELETE /api/blog-posts/{slug}/` - Delete post (author/admin)
 - `GET /api/blog-posts/{slug}/comments/` - Post comments
 
-### Photos
-- `GET /api/photos/` - List photos (paginated)
-- `POST /api/photos/` - Upload photo (auth required)
-- `GET /api/photos/{id}/` - Photo details
-- `PUT /api/photos/{id}/` - Update photo (author/admin)
-- `DELETE /api/photos/{id}/` - Delete photo (author/admin)
+### Makeup Portfolio
+- `GET /api/photos/` - List makeup work (paginated)
+- `POST /api/photos/` - Upload makeup work (auth required)
+- `GET /api/photos/{id}/` - Work details
+- `PUT /api/photos/{id}/` - Update work (author/admin)
+- `DELETE /api/photos/{id}/` - Delete work (author/admin)
 
 ### Comments
 - `GET /api/comments/` - List all comments

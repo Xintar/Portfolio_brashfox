@@ -1,6 +1,6 @@
 # 🚀 Quick Start - BrashFox Portfolio
 
-Szybki przewodnik uruchomienia projektu po integracji Frontend-Backend.
+Quick guide for launching the makeup artist portfolio project with integrated Frontend-Backend.
 
 ---
 
