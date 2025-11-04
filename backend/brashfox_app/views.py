@@ -1,3 +1,8 @@
+"""
+LEGACY DJANGO VIEWS - używane tylko dla Django templates (SSR)
+Nowoczesne API REST znajduje się w: brashfox_app/api/views.py
+"""
+
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy

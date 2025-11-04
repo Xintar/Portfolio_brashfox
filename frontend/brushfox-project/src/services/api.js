@@ -28,11 +28,40 @@ api.interceptors.request.use(
 // Response interceptor
 api.interceptors.response.use(
   (response) => response,
-  (error) => {
-    if (error.response?.status === 401) {
-      // Unauthorized - clear token and redirect to login
-      localStorage.removeItem('authToken');
-      window.location.href = '/login';
+  async (error) => {
+    const originalRequest = error.config;
+
+    // Handle 401 Unauthorized
+    if (error.response?.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
+
+      // Try to refresh token
+      const refreshToken = localStorage.getItem('refreshToken');
+      if (refreshToken) {
+        try {
+          const response = await axios.post(`${API_BASE_URL}/token/refresh/`, {
+            refresh: refreshToken,
+          });
+          
+          const { access } = response.data;
+          localStorage.setItem('authToken', access);
+          
+          // Retry original request with new token
+          originalRequest.headers.Authorization = `Bearer ${access}`;
+          return api(originalRequest);
+        } catch (refreshError) {
+          // Refresh failed - logout
+          localStorage.removeItem('authToken');
+          localStorage.removeItem('refreshToken');
+          localStorage.removeItem('user');
+          window.location.href = '/login';
+        }
+      } else {
+        // No refresh token - logout
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('user');
+        window.location.href = '/login';
+      }
     }
     return Promise.reject(error);
   }
@@ -48,35 +77,42 @@ export const apiService = {
   delete: (url, config) => api.delete(url, config),
 
   // Blog Posts
-  getPosts: (page = 1) => api.get(`/posts/?page=${page}`),
-  getPostBySlug: (slug) => api.get(`/posts/${slug}/`),
-  createPost: (data) => api.post('/posts/', data),
-  updatePost: (id, data) => api.patch(`/posts/${id}/`, data),
-  deletePost: (id) => api.delete(`/posts/${id}/`),
+  getPosts: (params = {}) => api.get('/blog-posts/', { params }),
+  getPostBySlug: (slug) => api.get(`/blog-posts/${slug}/`),
+  createPost: (data) => api.post('/blog-posts/', data),
+  updatePost: (slug, data) => api.patch(`/blog-posts/${slug}/`, data),
+  deletePost: (slug) => api.delete(`/blog-posts/${slug}/`),
+  searchPosts: (query) => api.get('/blog-posts/', { params: { search: query } }),
+
+  // Blog Categories
+  getPostCategories: () => api.get('/post-categories/'),
 
   // Comments
-  getComments: (postId) => api.get(`/post-comments/?blog_post=${postId}`),
-  createComment: (data) => api.post('/post-comments/', data),
+  getPostComments: (slug) => api.get(`/blog-posts/${slug}/comments/`),
+  getAllComments: (params = {}) => api.get('/comments/', { params }),
+  createComment: (data) => api.post('/comments/', data),
 
   // Portfolio Photos
-  getPhotos: (page = 1) => api.get(`/fotos/?page=${page}`),
-  getPhotoById: (id) => api.get(`/fotos/${id}/`),
-  uploadPhoto: (formData) => api.post('/fotos/', formData, {
+  getPhotos: (params = {}) => api.get('/photos/', { params }),
+  getPhotoById: (id) => api.get(`/photos/${id}/`),
+  uploadPhoto: (formData) => api.post('/photos/', formData, {
     headers: { 'Content-Type': 'multipart/form-data' },
   }),
-  updatePhoto: (id, data) => api.patch(`/fotos/${id}/`, data),
-  deletePhoto: (id) => api.delete(`/fotos/${id}/`),
+  updatePhoto: (id, data) => api.patch(`/photos/${id}/`, data),
+  deletePhoto: (id) => api.delete(`/photos/${id}/`),
 
   // Photo Categories
-  getPhotoCategories: () => api.get('/foto-categories/'),
+  getPhotoCategories: () => api.get('/photo-categories/'),
 
   // Contact Messages
-  sendMessage: (data) => api.post('/messages/', data),
+  sendMessage: (data) => api.post('/contact/', data),
 
-  // Auth
-  login: (credentials) => api.post('/api-auth/login/', credentials),
-  logout: () => api.post('/api-auth/logout/'),
+  // Auth & Users
+  login: (credentials) => api.post('/token/', credentials),
+  refreshToken: (refresh) => api.post('/token/refresh/', { refresh }),
   register: (userData) => api.post('/users/', userData),
+  getCurrentUser: () => api.get('/users/me/'),
+  getUsers: (params = {}) => api.get('/users/', { params }),
 };
 
 export default api;

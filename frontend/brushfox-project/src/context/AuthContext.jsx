@@ -19,47 +19,57 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     // Check if user is logged in on mount
     const token = localStorage.getItem('authToken');
-    const savedUser = localStorage.getItem('user');
     
-    if (token && savedUser) {
-      setUser(JSON.parse(savedUser));
-      setIsAuthenticated(true);
+    if (token) {
+      // Fetch current user data
+      apiService.getCurrentUser()
+        .then(response => {
+          setUser(response.data);
+          setIsAuthenticated(true);
+        })
+        .catch(() => {
+          // Token invalid - clear storage
+          localStorage.removeItem('authToken');
+          localStorage.removeItem('refreshToken');
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    } else {
+      setLoading(false);
     }
-    setLoading(false);
   }, []);
 
   const login = async (username, password) => {
     try {
       const response = await apiService.login({ username, password });
-      const userData = response.data;
+      const { access, refresh } = response.data;
       
-      // Save to localStorage
-      localStorage.setItem('authToken', userData.token || 'temp-token');
-      localStorage.setItem('user', JSON.stringify(userData));
+      // Save tokens to localStorage
+      localStorage.setItem('authToken', access);
+      localStorage.setItem('refreshToken', refresh);
       
-      setUser(userData);
+      // Fetch full user data
+      const userResponse = await apiService.getCurrentUser();
+      setUser(userResponse.data);
       setIsAuthenticated(true);
+      
       return { success: true };
     } catch (error) {
       console.error('Login error:', error);
       return { 
         success: false, 
-        error: error.response?.data?.message || 'Błąd logowania' 
+        error: error.response?.data?.detail || error.response?.data?.message || 'Błąd logowania' 
       };
     }
   };
 
   const logout = async () => {
-    try {
-      await apiService.logout();
-    } catch (error) {
-      console.error('Logout error:', error);
-    } finally {
-      localStorage.removeItem('authToken');
-      localStorage.removeItem('user');
-      setUser(null);
-      setIsAuthenticated(false);
-    }
+    // Clear local storage
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('refreshToken');
+    setUser(null);
+    setIsAuthenticated(false);
   };
 
   const register = async (userData) => {

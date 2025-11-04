@@ -25,7 +25,7 @@ const BlogPostDetail = () => {
     }
 
     try {
-      await apiService.deletePost(post.id);
+      await apiService.deletePost(slug);  // Use slug instead of post.id
       toast.success('Post został usunięty');
       navigate('/blog');
     } catch (err) {

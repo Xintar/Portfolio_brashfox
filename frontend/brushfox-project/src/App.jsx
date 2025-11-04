@@ -11,6 +11,7 @@ import Blog from './pages/Blog';
 import BlogPostDetail from './pages/BlogPostDetail';
 import NewBlogPost from './pages/NewBlogPost';
 import Portfolio from './pages/Portfolio';
+import PhotoDetail from './pages/PhotoDetail';
 import Contact from './pages/Contact';
 import About from './pages/About';
 import Login from './pages/Login';
@@ -28,6 +29,7 @@ function App() {
             <Route path="/blog/new" element={<NewBlogPost />} />
             <Route path="/blog/:slug" element={<BlogPostDetail />} />
             <Route path="/portfolio" element={<Portfolio />} />
+            <Route path="/portfolio/:id" element={<PhotoDetail />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/login" element={<Login />} />

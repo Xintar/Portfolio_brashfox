@@ -16,7 +16,7 @@ const BlogCard = ({ post }) => {
       </div>
       
       <div className="blog-card-content">
-        <p>{truncateText(post.post, 200)}</p>
+        <p>{post.excerpt || truncateText(post.post, 200)}</p>
       </div>
       
       <div className="blog-card-footer">

@@ -1,27 +1,31 @@
 // API Configuration
 export const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
 
-// API Endpoints
+// API Endpoints - zgodne z backend/brashfox_app/api/urls.py
 export const API_ENDPOINTS = {
   // Blog
-  POSTS: '/posts/',
-  POST_DETAIL: (slug) => `/posts/${slug}/`,
-  POST_COMMENTS: (postId) => `/post-comments/?blog_post=${postId}`,
-  POST_CATEGORIES: '/post-categories/',
+  POSTS: '/blog-posts/',
+  POST_DETAIL: (slug) => `/blog-posts/${slug}/`,
+  POST_COMMENTS: (slug) => `/blog-posts/${slug}/comments/`,
+  POST_CATEGORIES: '/post-categories/',  // FIXED: was blog-categories
   
   // Portfolio
-  PHOTOS: '/fotos/',
-  PHOTO_DETAIL: (id) => `/fotos/${id}/`,
-  PHOTO_CATEGORIES: '/foto-categories/',
-  PHOTO_TAGS: '/foto-tags/',
+  PHOTOS: '/photos/',
+  PHOTO_DETAIL: (id) => `/photos/${id}/`,
+  PHOTO_CATEGORIES: '/photo-categories/',
+  
+  // Comments (all)
+  COMMENTS: '/comments/',
   
   // Contact
-  MESSAGES: '/messages/',
+  CONTACT: '/contact/',
   
-  // Auth
+  // Auth & Users
   USERS: '/users/',
-  LOGIN: '/api-auth/login/',
-  LOGOUT: '/api-auth/logout/',
+  USER_ME: '/users/me/',
+  LOGIN: '/token/',  // JWT login
+  REFRESH: '/token/refresh/',  // JWT refresh
+  REGISTER: '/users/',
 };
 
 // UI Constants
