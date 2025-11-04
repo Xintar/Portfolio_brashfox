@@ -1,0 +1,10 @@
+.blog-list {
+  width: 100%;
+}
+
+.no-posts {
+  text-align: center;
+  padding: 3rem;
+  color: #666;
+  font-size: 1.1rem;
+}
