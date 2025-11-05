@@ -13,7 +13,7 @@ class ContactView(View):
     """Contact form view."""
     def get(self, request):
         form = ContactForm()
-        return render(request, 'contact.html', {'form': form})
+        return render(request, 'contact/contact.html', {'form': form})
 
     def post(self, request):
         form = ContactForm(request.POST)
@@ -25,10 +25,10 @@ class ContactView(View):
                 'form': form,
                 'coment': 'Proszę o poprawne dane'
             }
-            return render(request, 'contact.html', ctx)
+            return render(request, 'contact/contact.html', ctx)
 
 
 class ContactSucessView(View):
     """Contact form success page view."""
     def get(self, request):
-        return render(request, 'contact_succes.html')
+        return render(request, 'contact/contact_succes.html')

@@ -14,10 +14,10 @@ class LoginView(View):
     """User login view."""
     def get(self, request):
         if request.user.is_authenticated:
-            return render(request, "logged.html", {"user": request.user})
+            return render(request, "auth/logged.html", {"user": request.user})
         else:
             form = LoginForm()
-            return render(request, 'login.html', {'form': form})
+            return render(request, 'auth/login.html', {'form': form})
 
     def post(self, request):
         form = LoginForm(request.POST)
@@ -35,14 +35,14 @@ class LoginView(View):
                     'form': form,
                     'comment': "Błędne dane logowania"
                 }
-                return render(request, 'login.html', ctx)
+                return render(request, 'auth/login.html', ctx)
         else:
             form = LoginForm()
             ctx = {
                 'form': form,
                 'comment': "Błędne dane logowania"
             }
-            return render(request, 'login.html', ctx)
+            return render(request, 'auth/login.html', ctx)
 
 
 class LogoutView(View):
@@ -62,4 +62,4 @@ def register(request):
     else:
         form = UserCreationForm()
 
-    return render(request, 'register.html', {'form': form})
+    return render(request, 'auth/register.html', {'form': form})

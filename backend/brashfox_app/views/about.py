@@ -16,4 +16,4 @@ class AboutMeView(View):
         ctx = {
             'about_me': about_me
         }
-        return render(request, 'about_me.html', ctx)
+        return render(request, 'about/about_me.html', ctx)

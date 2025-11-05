@@ -19,7 +19,7 @@ class BlogView(View):
         ctx = {
             'posts': posts
         }
-        return render(request, 'blog.html', ctx)
+        return render(request, 'blog/blog.html', ctx)
 
 
 class PostDetailView(View):
@@ -31,14 +31,14 @@ class PostDetailView(View):
             'post': blog_post.post,
             'pk': blog_post.pk
         }
-        return render(request, 'post_detail.html', ctx)
+        return render(request, 'blog/post_detail.html', ctx)
 
 
 class AddPostView(LoginRequiredMixin, CreateView):
     """Add new blog post view."""
     model = BlogPost
     fields = ['title', 'post']
-    template_name = 'blogpost_form.html'
+    template_name = 'blog/blogpost_form.html'
     success_url = reverse_lazy('start')
 
     def form_valid(self, form):
@@ -52,7 +52,7 @@ class EditPostView(LoginRequiredMixin, UpdateView):
     """Edit blog post view."""
     model = BlogPost
     fields = ['title', 'post']
-    template_name = 'blogpost_update_form.html'
+    template_name = 'blog/blogpost_update_form.html'
 
     def get_object(self, **kwargs):
         pk = self.kwargs.get('pk')
@@ -66,5 +66,5 @@ class EditPostView(LoginRequiredMixin, UpdateView):
 class DeletePostView(LoginRequiredMixin, DeleteView):
     """Delete blog post view."""
     model = BlogPost
-    template_name = 'blogpost_confirm_delete.html'
+    template_name = 'blog/blogpost_confirm_delete.html'
     success_url = reverse_lazy('blog')
