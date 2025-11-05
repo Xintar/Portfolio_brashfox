@@ -17,10 +17,10 @@ const Portfolio = () => {
     <div className="portfolio-page">
       <div className="page-header">
         <h1>Portfolio</h1>
-        <p className="page-subtitle">Galeria moich prac fotograficznych</p>
+        <p className="page-subtitle">Galeria moich prac - charakteryzacja, makijaż, kostiumy</p>
         {isAuthenticated && (
           <Link to="/portfolio/new">
-            <Button>📷 Dodaj zdjęcie</Button>
+            <Button>🎨 Dodaj pracę</Button>
           </Link>
         )}
       </div>

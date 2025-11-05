@@ -7,8 +7,8 @@ const Footer = () => {
     <footer className="footer">
       <div className="footer-container">
         <div className="footer-section">
-          <h3>BrashFox Portfolio</h3>
-          <p>Fotografia i blog osobisty</p>
+          <h3>Fox Brush Studio</h3>
+          <p>Charakteryzacja, makijaż i kreacja kostiumów</p>
         </div>
         
         <div className="footer-section">
@@ -32,7 +32,7 @@ const Footer = () => {
       </div>
       
       <div className="footer-bottom">
-        <p>&copy; {currentYear} BrashFox. Wszystkie prawa zastrzeżone.</p>
+        <p>&copy; {currentYear} Fox Brush Studio - Marta Chojecka. Wszystkie prawa zastrzeżone.</p>
       </div>
     </footer>
   );

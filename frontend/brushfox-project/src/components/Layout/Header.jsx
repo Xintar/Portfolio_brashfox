@@ -10,7 +10,7 @@ const Header = () => {
     <header className="header">
       <div className="header-container">
         <Link to="/" className="logo">
-          <h1>BrashFox</h1>
+          <h1>Fox Brush</h1>
         </Link>
         
         <nav className="main-nav">
