@@ -1,5 +1,6 @@
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { getMediaUrl } from '../utils/constants';
 import useFetch from '../hooks/useFetch';
 import { apiService } from '../services/api';
 import { formatDate } from '../utils/helpers';
@@ -38,9 +39,7 @@ const PhotoDetail = () => {
   if (error) return <ErrorMessage message={error} onRetry={refetch} />;
   if (!photo) return <ErrorMessage message="Zdjęcie nie zostało znalezione" />;
 
-  const imageUrl = photo.image?.startsWith('http') 
-    ? photo.image 
-    : `http://localhost:8000${photo.image}`;
+  const imageUrl = getMediaUrl(photo.image);
 
   const isOwner = isAuthenticated && (user?.username === photo.author || user?.is_staff);
 

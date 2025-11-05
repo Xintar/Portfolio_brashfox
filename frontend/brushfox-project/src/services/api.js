@@ -104,6 +104,9 @@ export const apiService = {
   // Photo Categories
   getPhotoCategories: () => api.get('/photo-categories/'),
 
+  // About Me
+  getAbout: () => api.get('/about/'),
+
   // Contact Messages
   sendMessage: (data) => api.post('/contact/', data),
 

@@ -29,6 +29,9 @@ from .comment import PostCommentsSerializer
 # Message serializers
 from .message import MessageSerializer
 
+# About serializers
+from .about import AboutMeSerializer
+
 # Export all serializers
 __all__ = [
     # User
@@ -48,4 +51,6 @@ __all__ = [
     'PostCommentsSerializer',
     # Message
     'MessageSerializer',
+    # About
+    'AboutMeSerializer',
 ]

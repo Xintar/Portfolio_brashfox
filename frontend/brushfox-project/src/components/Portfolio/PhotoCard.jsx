@@ -1,10 +1,9 @@
 import { Link } from 'react-router-dom';
+import { getMediaUrl } from '../../utils/constants';
 import './PhotoCard.css';
 
 const PhotoCard = ({ photo }) => {
-  const imageUrl = photo.image?.startsWith('http') 
-    ? photo.image 
-    : `http://localhost:8000${photo.image}`;
+  const imageUrl = getMediaUrl(photo.image);
 
   return (
     <div className="photo-card">

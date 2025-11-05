@@ -32,6 +32,9 @@ from .comment import PostCommentsViewSet
 # Messages (Contact Form)
 from .message import MessageViewSet
 
+# About Me
+from .about import AboutMeView
+
 
 __all__ = [
     # User/Auth
@@ -48,4 +51,6 @@ __all__ = [
     'PostCommentsViewSet',
     # Messages
     'MessageViewSet',
+    # About
+    'AboutMeView',
 ]

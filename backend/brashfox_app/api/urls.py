@@ -1,4 +1,5 @@
 from rest_framework.routers import DefaultRouter
+from django.urls import path
 
 from brashfox_app.api.views import (
     UserViewSet,
@@ -10,6 +11,7 @@ from brashfox_app.api.views import (
     PostCategoryViewSet,
     PostCommentsViewSet,
     MessageViewSet,
+    AboutMeView,
 )
 
 
@@ -33,4 +35,10 @@ router.register(r'comments', PostCommentsViewSet, basename='comment')
 # Contact messages
 router.register(r'messages', MessageViewSet, basename='message')
 
+# Additional URL patterns (non-ViewSet views)
+urlpatterns = [
+    path('about/', AboutMeView.as_view(), name='about-me'),
+]
 
+# Combine router URLs with custom URLs
+urlpatterns += router.urls

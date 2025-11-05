@@ -13,6 +13,9 @@ from .comment import PostComments
 # Message models
 from .message import Message
 
+# About models
+from .about import AboutMe
+
 # Export all models
 __all__ = [
     # Photo
@@ -26,4 +29,6 @@ __all__ = [
     'PostComments',
     # Message
     'Message',
+    # About
+    'AboutMe',
 ]
