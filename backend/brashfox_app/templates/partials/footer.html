@@ -1,0 +1,56 @@
+{% load static %}
+
+<footer class="django-footer">
+    <div class="footer-container">
+        <div class="footer-grid">
+            <!-- About Section -->
+            <div class="footer-section footer-about">
+                <h3>Fox Brush Studio</h3>
+                <p class="footer-tagline">Marta Chojecka - Makeup Artist</p>
+                <p class="footer-services">Profesjonalny makijaż • Wizaż • Stylizacja</p>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="footer-section footer-links">
+                <h4>Szybkie Linki</h4>
+                <ul>
+                    <li><a href="{% url 'start' %}">Strona Główna</a></li>
+                    <li><a href="{% url 'portfolio' %}">Portfolio</a></li>
+                    <li><a href="{% url 'blog' %}">Blog</a></li>
+                    <li><a href="/about-me/">O Mnie</a></li>
+                    <li><a href="{% url 'contact' %}">Kontakt</a></li>
+                </ul>
+            </div>
+
+            <!-- Social Media -->
+            <div class="footer-section footer-social">
+                <h4>Śledź Nas</h4>
+                <div class="social-icons">
+                    {% if about_me.social_links.facebook %}
+                    <a href="{{ about_me.social_links.facebook }}" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                        <img src="{% static 'socials/facebook.png' %}" alt="Facebook">
+                    </a>
+                    {% endif %}
+                    
+                    {% if about_me.social_links.instagram %}
+                    <a href="{{ about_me.social_links.instagram }}" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                        <img src="{% static 'socials/instagram.png' %}" alt="Instagram">
+                    </a>
+                    {% endif %}
+                    
+                    {% if about_me.social_links.pinterest %}
+                    <a href="{{ about_me.social_links.pinterest }}" target="_blank" rel="noopener noreferrer" aria-label="Pinterest">
+                        <img src="{% static 'socials/pinterest.png' %}" alt="Pinterest">
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p class="footer-copyright">
+                &copy; {% now "Y" %} Fox Brush Studio. Wszelkie prawa zastrzeżone.
+            </p>
+        </div>
+    </div>
+</footer>
