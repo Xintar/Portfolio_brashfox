@@ -3,6 +3,7 @@ from rest_framework.routers import DefaultRouter
 
 from brashfox_app.api.urls import (
     router as brashfox_app_router,
+    urlpatterns as brashfox_app_urlpatterns,
 )
 
 
@@ -11,4 +12,4 @@ router.registry.extend(brashfox_app_router.registry)
 
 urlpatterns = [
     path('', include(router.urls)),
-]
+] + brashfox_app_urlpatterns

@@ -1,0 +1,30 @@
+.blog-page {
+  width: 100%;
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.page-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.page-subtitle {
+  color: #666;
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  .page-header h1 {
+    color: #fff;
+  }
+
+  .page-subtitle {
+    color: #aaa;
+  }
+}

@@ -16,6 +16,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
+from rest_framework_simplejwt.views import TokenVerifyView
+
+from brashfox_app.api.auth_views import (
+    ThrottledTokenObtainPairView,
+    ThrottledTokenRefreshView,
+)
 from brashfox_app.views import (
     IndexView,
     PortfolioView,
@@ -37,8 +45,22 @@ from brashfox_app.views import (
 )
 
 urlpatterns = [
+    # Admin
     path('admin/', admin.site.urls),
     
+    # API endpoints
+    path('api/', include('brashfox.api.urls')),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    
+    # JWT Authentication (with rate limiting)
+    path('api/token/', ThrottledTokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', ThrottledTokenRefreshView.as_view(), name='token_refresh'),
+    path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
+    
+    # API Documentation
+    path('api/schema/', include('brashfox.api.schema_urls')),
+    
+    # Django Template Views (legacy - można usunąć jeśli używasz tylko React)
     path('', IndexView.as_view(), name='start'),
     path('about-me/', AboutMeView.as_view()),
     path('contact/', ContactView.as_view(), name='contact'),
@@ -56,7 +78,9 @@ urlpatterns = [
     path('fotos/add/', AddFotosView.as_view(), name='add-fotos'),
     path('fotos/edit/<int:pk>/', EditFotosView.as_view(), name='edit-fotos'),
     path('fotos/delete/<int:pk>/', DeleteFotosView.as_view(), name='delete-fotos'),
-    
-    path('api/', include('brashfox.api.urls')),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]
+
+# Serve media files in development
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_URL)

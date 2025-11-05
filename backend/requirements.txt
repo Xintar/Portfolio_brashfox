@@ -1,14 +1,25 @@
+# Core Django
 Django
 djangorestframework
-markdown
+djangorestframework-simplejwt
+
+# API Features
 django-filter
 django-cors-headers
+drf-spectacular
+
+# Database
 psycopg2-binary
+
+# Utils
 python-dateutil
 six
 text-unidecode
+Pillow
+
+# Dev Tools
 ipython
 flake8
 pytest
 pytest-django
-text-unidecode
+markdown

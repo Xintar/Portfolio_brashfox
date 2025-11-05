@@ -12,7 +12,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
-from corsheaders.defaults import default_headers
+import sys
+from datetime import timedelta
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -32,6 +33,9 @@ except ModuleNotFoundError:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# Testing mode flag (set by pytest)
+TESTING = 'test' in sys.argv or 'pytest' in sys.modules
+
 ALLOWED_HOSTS = []
 
 
@@ -45,36 +49,103 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
+    # Third party apps
     'rest_framework',
+    'rest_framework_simplejwt',
     'corsheaders',
+    'django_filters',
+    'drf_spectacular',
     
+    # Local apps
     'brashfox_app',
 
 ]
 
 REST_FRAMEWORK = {
+    # Authentication
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ],
+    
+    # Permissions - Allow read for all, require auth for write
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+    ],
+    
+    # Pagination
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
-    ]
+    
+    # Filtering
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend',
+        'rest_framework.filters.SearchFilter',
+        'rest_framework.filters.OrderingFilter',
+    ],
+    
+    # Throttling (rate limiting)
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.AnonRateThrottle',
+        'rest_framework.throttling.UserRateThrottle',
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '100/hour',      # Anonymous users: 100 requests per hour
+        'user': '1000/hour',     # Authenticated users: 1000 requests per hour
+        'contact': '5/hour',     # Contact form: 5 messages per hour
+        'register': '3/hour',    # Registration: 3 attempts per hour
+        'login': '10/hour',      # Login: 10 attempts per hour
+    },
+    
+    # Schema - for API documentation
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    
+    # Rendering
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ],
 }
 
+# CORS Configuration
 CORS_ALLOW_ALL_ORIGINS = False
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:5173',
+    'http://127.0.0.1:5173',
+]
+
+CORS_ALLOW_CREDENTIALS = True
+
+CORS_ALLOW_METHODS = [
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+]
+
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware',  # Should be as high as possible
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    
-    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'brashfox.urls'
@@ -158,4 +229,47 @@ DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
-FILE_UPLOAD_MAX_MEMORY_SIZE = 10000000
+# Media files (uploads)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# File upload settings
+FILE_UPLOAD_MAX_MEMORY_SIZE = 10000000  # 10MB
+
+# JWT Settings
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(hours=1),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+    'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': True,
+    'UPDATE_LAST_LOGIN': True,
+    
+    'ALGORITHM': 'HS256',
+    'SIGNING_KEY': SECRET_KEY,
+    'VERIFYING_KEY': None,
+    
+    'AUTH_HEADER_TYPES': ('Bearer',),
+    'AUTH_HEADER_NAME': 'HTTP_AUTHORIZATION',
+    'USER_ID_FIELD': 'id',
+    'USER_ID_CLAIM': 'user_id',
+    
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+    'TOKEN_TYPE_CLAIM': 'token_type',
+}
+
+# DRF Spectacular Settings (API Documentation)
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'BrashFox Portfolio API',
+    'DESCRIPTION': 'API dla aplikacji portfolio fotograficznego i bloga',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+    'COMPONENT_SPLIT_REQUEST': True,
+    'SCHEMA_PATH_PREFIX': r'/api/',
+    'SWAGGER_UI_SETTINGS': {
+        'deepLinking': True,
+        'persistAuthorization': True,
+        'displayOperationId': True,
+    },
+    'PREPROCESSING_HOOKS': [],
+    'POSTPROCESSING_HOOKS': [],
+}

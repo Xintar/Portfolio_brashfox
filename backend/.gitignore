@@ -1,0 +1,51 @@
+# ============================================
+# Backend-specific .gitignore
+# ============================================
+# (Main .gitignore already covers most Python/Django patterns)
+
+# ----------------
+# Django Local Settings (CRITICAL - contains DB passwords!)
+# ----------------
+/brashfox/local_settings.py
+
+# ----------------
+# Database
+# ----------------
+*.sqlite3
+*.db
+
+# ----------------
+# Media files (user uploads)
+# ----------------
+/media/
+
+# ----------------
+# Static files (collected)
+# ----------------
+/staticfiles/
+/static_root/
+
+# ----------------
+# Logs
+# ----------------
+*.log
+
+# ----------------
+# Python cache
+# ----------------
+**/__pycache__/
+*.pyc
+*.pyo
+
+# ----------------
+# Testing
+# ----------------
+.pytest_cache/
+.coverage
+htmlcov/
+
+# ----------------
+# Backup files from refactoring
+# ----------------
+*_old.py.bak
+**/*_old.py.bak

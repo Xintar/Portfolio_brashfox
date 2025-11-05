@@ -13,7 +13,7 @@
                     </a>
                     <strong>Opis: </strong>{{ foto.name }}<br>
                     <strong>Autor: </strong>{{ foto.author}}<br>
-                    <strong>Wydarzenie: </strong>{{ foto.ivent}}<br>
+                    <strong>Wydarzenie: </strong>{{ foto.event }}<br>
                     {% if user.is_authenticated %}
                         <a href="/fotos/edit/{{foto.pk}}/">
                             Edytuj<br>
