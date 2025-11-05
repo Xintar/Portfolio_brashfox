@@ -90,6 +90,22 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* Specific backgrounds for each social platform */
+.social-icons a[href*="facebook"] {
+  background: #1877f2;
+  padding: 8px;
+}
+
+.social-icons a[href*="instagram"] {
+  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+  padding: 8px;
+}
+
+.social-icons a[href*="pinterest"] {
+  background: white;
+  padding: 8px;
+}
+
 .social-icons a:hover {
   transform: translateY(-4px) scale(1.05);
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
@@ -99,6 +115,17 @@
   width: 32px;
   height: 32px;
   object-fit: contain;
+}
+
+/* Make Facebook and Instagram icons white */
+.social-icons a[href*="facebook"] img,
+.social-icons a[href*="instagram"] img {
+  filter: brightness(0) invert(1);
+}
+
+/* Pinterest logo stays as is (red badge) */
+.social-icons a[href*="pinterest"] img {
+  filter: none;
 }
 
 /* Footer Bottom */

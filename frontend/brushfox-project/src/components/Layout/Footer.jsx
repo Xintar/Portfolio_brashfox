@@ -1,10 +1,15 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { apiService } from '../../services/api';
-import facebookIcon from '../../assets/socials/facebook.png';
-import instagramIcon from '../../assets/socials/instagram.png';
-import pinterestIcon from '../../assets/socials/pinterest.png';
 import './Footer.css';
+
+// Social media icons served from Django static files
+const STATIC_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+const socialIcons = {
+  facebook: `${STATIC_URL}/static/socials/facebook.png`,
+  instagram: `${STATIC_URL}/static/socials/instagram.png`,
+  pinterest: `${STATIC_URL}/static/socials/pinterest.png`,
+};
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -64,7 +69,7 @@ const Footer = () => {
                   aria-label="Facebook"
                   title="Facebook"
                 >
-                  <img src={facebookIcon} alt="Facebook" />
+                  <img src={socialIcons.facebook} alt="Facebook" />
                 </a>
               )}
               {socialLinks.instagram && (
@@ -75,7 +80,7 @@ const Footer = () => {
                   aria-label="Instagram"
                   title="Instagram"
                 >
-                  <img src={instagramIcon} alt="Instagram" />
+                  <img src={socialIcons.instagram} alt="Instagram" />
                 </a>
               )}
               {socialLinks.pinterest && (
@@ -86,7 +91,7 @@ const Footer = () => {
                   aria-label="Pinterest"
                   title="Pinterest"
                 >
-                  <img src={pinterestIcon} alt="Pinterest" />
+                  <img src={socialIcons.pinterest} alt="Pinterest" />
                 </a>
               )}
             </div>
