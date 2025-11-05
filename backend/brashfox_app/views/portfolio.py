@@ -11,6 +11,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from brashfox_app.models import FotoDescription
 
 
+adres_prefix = "portfolio/"
+
 class PortfolioView(View):
     """Portfolio gallery list view."""
     def get(self, request):
@@ -18,7 +20,7 @@ class PortfolioView(View):
         ctx = {
             'fotos': fotos,
         }
-        return render(request, 'portfolio/portfolio.html', ctx)
+        return render(request, f'{adres_prefix}portfolio.html', ctx)
 
 
 class DetailFotoView(View):
@@ -28,14 +30,14 @@ class DetailFotoView(View):
         ctx = {
             'foto': foto
         }
-        return render(request, 'portfolio/foto_detail.html', ctx)
+        return render(request, f'{adres_prefix}foto_detail.html', ctx)
 
 
 class AddFotosView(LoginRequiredMixin, CreateView):
     """Add new photo view."""
     model = FotoDescription
     fields = ['name', 'author', 'event', 'image', 'foto_category']
-    template_name = 'portfolio/fotodescription_form.html'
+    template_name = f'{adres_prefix}fotodescription_form.html'
     success_url = reverse_lazy('add-fotos')
 
     def form_valid(self, form):
@@ -48,7 +50,7 @@ class EditFotosView(LoginRequiredMixin, UpdateView):
     """Edit photo view."""
     model = FotoDescription
     fields = ['name', 'author', 'event', 'image']
-    template_name = 'portfolio/fotodescription_update_form.html'
+    template_name = f'{adres_prefix}fotodescription_update_form.html'
 
     def get_object(self, **kwargs):
         pk = self.kwargs.get('pk')
@@ -62,5 +64,5 @@ class EditFotosView(LoginRequiredMixin, UpdateView):
 class DeleteFotosView(LoginRequiredMixin, DeleteView):
     """Delete photo view."""
     model = FotoDescription
-    template_name = 'portfolio/fotodescription_confirm_delete.html'
+    template_name = f'{adres_prefix}fotodescription_confirm_delete.html'
     success_url = reverse_lazy('portfolio')

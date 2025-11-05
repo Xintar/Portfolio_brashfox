@@ -10,14 +10,16 @@ from django.contrib.auth import authenticate, login, logout
 from brashfox_app.forms import LoginForm
 
 
+adres_prefix = "auth/"
+
 class LoginView(View):
     """User login view."""
     def get(self, request):
         if request.user.is_authenticated:
-            return render(request, "auth/logged.html", {"user": request.user})
+            return render(request, f"{adres_prefix}logged.html", {"user": request.user})
         else:
             form = LoginForm()
-            return render(request, 'auth/login.html', {'form': form})
+            return render(request, f"{adres_prefix}login.html", {'form': form})
 
     def post(self, request):
         form = LoginForm(request.POST)
@@ -35,14 +37,14 @@ class LoginView(View):
                     'form': form,
                     'comment': "Błędne dane logowania"
                 }
-                return render(request, 'auth/login.html', ctx)
+                return render(request, f'{adres_prefix}login.html', ctx)
         else:
             form = LoginForm()
             ctx = {
                 'form': form,
                 'comment': "Błędne dane logowania"
             }
-            return render(request, 'auth/login.html', ctx)
+            return render(request, f'{adres_prefix}login.html', ctx)
 
 
 class LogoutView(View):
@@ -62,4 +64,4 @@ def register(request):
     else:
         form = UserCreationForm()
 
-    return render(request, 'auth/register.html', {'form': form})
+    return render(request, f'{adres_prefix}register.html', {'form': form})
