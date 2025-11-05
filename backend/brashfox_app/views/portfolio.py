@@ -34,7 +34,7 @@ class DetailFotoView(View):
 class AddFotosView(LoginRequiredMixin, CreateView):
     """Add new photo view."""
     model = FotoDescription
-    fields = ['name', 'author', 'ivent', 'image', 'foto_category']
+    fields = ['name', 'author', 'event', 'image', 'foto_category']
     template_name = 'fotodescription_form.html'
     success_url = reverse_lazy('add-fotos')
 
@@ -47,7 +47,7 @@ class AddFotosView(LoginRequiredMixin, CreateView):
 class EditFotosView(LoginRequiredMixin, UpdateView):
     """Edit photo view."""
     model = FotoDescription
-    fields = ['name', 'author', 'ivent', 'image']
+    fields = ['name', 'author', 'event', 'image']
     template_name = 'fotodescription_update_form.html'
 
     def get_object(self, **kwargs):
