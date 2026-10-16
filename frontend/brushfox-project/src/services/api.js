@@ -108,7 +108,7 @@ export const apiService = {
   getAbout: () => api.get('/about/'),
 
   // Contact Messages
-  sendMessage: (data) => api.post('/contact/', data),
+  sendMessage: (data) => api.post('/messages/', data),
 
   // Auth & Users
   login: (credentials) => api.post('/token/', credentials),

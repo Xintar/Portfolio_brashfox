@@ -33,7 +33,7 @@ export const API_ENDPOINTS = {
   COMMENTS: '/comments/',
   
   // Contact
-  CONTACT: '/contact/',
+  CONTACT: '/messages/',
   
   // Auth & Users
   USERS: '/users/',
