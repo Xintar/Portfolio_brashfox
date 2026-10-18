@@ -1,6 +1,9 @@
 // API Configuration
-export const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
-export const MEDIA_BASE_URL = import.meta.env.VITE_MEDIA_URL || 'http://localhost:8000';
+const localBackendUrl = 'http://localhost:8000';
+export const API_BASE_URL = import.meta.env.VITE_API_URL
+  || (import.meta.env.DEV ? `${localBackendUrl}/api` : '/api');
+export const MEDIA_BASE_URL = import.meta.env.VITE_MEDIA_URL
+  || (import.meta.env.DEV ? localBackendUrl : '');
 
 /**
  * Build full media URL from relative path
