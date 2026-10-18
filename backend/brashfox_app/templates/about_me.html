@@ -26,7 +26,7 @@
         </div>
     {% endif %}
     
-    {% if about_me.email or about_me.phone or about_me.social_links %}
+    {% if about_me.email or about_me.phone or about_me.enabled_social_links %}
         <div class="about_me_contact">
             <h3>Kontakt:</h3>
             {% if about_me.email %}
@@ -35,10 +35,10 @@
             {% if about_me.phone %}
                 <p><strong>Telefon:</strong> {{ about_me.phone }}</p>
             {% endif %}
-            {% if about_me.social_links %}
+            {% if about_me.enabled_social_links %}
                 <div class="social_links">
-                    {% for platform, url in about_me.social_links.items %}
-                        <a href="{{ url }}" target="_blank" rel="noopener">{{ platform|title }}</a>
+                    {% for social_link in about_me.enabled_social_links %}
+                        <a href="{{ social_link.url }}" target="_blank" rel="noopener noreferrer">{{ social_link.label }}</a>
                     {% endfor %}
                 </div>
             {% endif %}

@@ -5,6 +5,17 @@ from django.db import models
 from django.core.exceptions import ValidationError
 
 
+SOCIAL_PLATFORM_CHOICES = (
+    ('instagram', 'Instagram'),
+    ('facebook', 'Facebook'),
+    ('tiktok', 'TikTok'),
+    ('youtube', 'YouTube'),
+    ('pinterest', 'Pinterest'),
+    ('linkedin', 'LinkedIn'),
+    ('x', 'X'),
+)
+
+
 class AboutMe(models.Model):
     """
     Singleton model for 'About Me' page content.
@@ -90,3 +101,31 @@ class AboutMe(models.Model):
     def get_instance(cls):
         """Get the singleton instance or None if it doesn't exist."""
         return cls.objects.first()
+
+    @property
+    def enabled_social_links(self):
+        """Return configured social links that are enabled for public display."""
+        links = self.social_links if isinstance(self.social_links, dict) else {}
+        labels = dict(SOCIAL_PLATFORM_CHOICES)
+        enabled_links = []
+
+        for platform, label in SOCIAL_PLATFORM_CHOICES:
+            configured_link = links.get(platform)
+            if isinstance(configured_link, str):
+                url = configured_link.strip()
+                enabled = bool(url)
+            elif isinstance(configured_link, dict):
+                configured_url = configured_link.get('url', '')
+                url = configured_url.strip() if isinstance(configured_url, str) else ''
+                enabled = configured_link.get('enabled', False)
+            else:
+                continue
+
+            if enabled and url:
+                enabled_links.append({
+                    'platform': platform,
+                    'label': labels[platform],
+                    'url': url,
+                })
+
+        return enabled_links
