@@ -24,6 +24,7 @@ from brashfox_app.api.auth_views import (
     ThrottledTokenObtainPairView,
     ThrottledTokenRefreshView,
 )
+from brashfox_app.api.admin_sso import admin_sso_login
 from brashfox_app.views import (
     IndexView,
     PortfolioView,
@@ -47,6 +48,7 @@ from brashfox_app.views import (
 urlpatterns = [
     # Admin
     path('admin/', admin.site.urls),
+    path('admin-sso/', admin_sso_login, name='admin-sso-login'),
     
     # API endpoints
     path('api/', include('brashfox.api.urls')),

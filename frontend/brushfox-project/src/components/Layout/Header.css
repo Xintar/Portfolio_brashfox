@@ -104,7 +104,8 @@
 
 .btn-logout,
 .btn-login,
-.btn-register {
+.btn-register,
+.btn-admin {
   display: inline-flex;
   min-height: 42px;
   align-items: center;
@@ -130,6 +131,16 @@
 .btn-login:hover {
   background: var(--color-ink);
   color: white;
+}
+
+.btn-admin {
+  border-color: var(--color-lime);
+  background: var(--color-lime);
+}
+
+.btn-admin:hover {
+  transform: translateY(-2px);
+  border-color: var(--color-ink);
 }
 
 .btn-register:hover {
@@ -186,7 +197,8 @@
 
   .btn-logout,
   .btn-login,
-  .btn-register {
+  .btn-register,
+  .btn-admin {
     min-height: 38px;
     padding: 0.45rem 0.8rem;
     font-size: 0.8rem;

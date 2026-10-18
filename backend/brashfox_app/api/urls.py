@@ -1,6 +1,7 @@
 from rest_framework.routers import DefaultRouter
 from django.urls import path
 
+from brashfox_app.api.admin_sso import AdminSsoTicketView
 from brashfox_app.api.views import (
     UserViewSet,
     GroupViewSet,
@@ -38,6 +39,7 @@ router.register(r'messages', MessageViewSet, basename='message')
 # Additional URL patterns (non-ViewSet views)
 urlpatterns = [
     path('about/', AboutMeView.as_view(), name='about-me'),
+    path('admin-sso/', AdminSsoTicketView.as_view(), name='admin-sso-ticket'),
 ]
 
 # Combine router URLs with custom URLs

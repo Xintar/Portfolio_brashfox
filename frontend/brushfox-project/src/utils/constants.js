@@ -4,6 +4,8 @@ export const API_BASE_URL = import.meta.env.VITE_API_URL
   || (import.meta.env.DEV ? `${localBackendUrl}/api` : '/api');
 export const MEDIA_BASE_URL = import.meta.env.VITE_MEDIA_URL
   || (import.meta.env.DEV ? localBackendUrl : '');
+export const ADMIN_URL = import.meta.env.VITE_ADMIN_URL || `${MEDIA_BASE_URL}/admin/`;
+export const ADMIN_SSO_URL = import.meta.env.VITE_ADMIN_SSO_URL || `${MEDIA_BASE_URL}/admin-sso/`;
 
 /**
  * Build full media URL from relative path

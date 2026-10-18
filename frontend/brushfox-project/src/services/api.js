@@ -107,6 +107,9 @@ export const apiService = {
   // About Me
   getAbout: () => api.get('/about/'),
 
+  // Admin panel single sign-on
+  getAdminSsoTicket: () => api.post('/admin-sso/'),
+
   // Contact Messages
   sendMessage: (data) => api.post('/messages/', data),
 

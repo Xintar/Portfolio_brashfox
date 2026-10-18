@@ -52,6 +52,7 @@ class UserViewSet(ModelViewSet):
         
         # Add user statistics using service
         data['statistics'] = UserService.get_user_statistics(request.user)
+        data['is_superuser'] = request.user.is_superuser
         
         return Response(data)
 
