@@ -10,6 +10,7 @@ class AboutMeSerializer(serializers.ModelSerializer):
     Serializer for AboutMe singleton model.
     """
     profile_image_url = serializers.SerializerMethodField()
+    social_links = serializers.SerializerMethodField()
     
     class Meta:
         model = AboutMe
@@ -37,3 +38,7 @@ class AboutMeSerializer(serializers.ModelSerializer):
                 return request.build_absolute_uri(obj.profile_image.url)
             return obj.profile_image.url
         return None
+
+    def get_social_links(self, obj):
+        """Expose only enabled, configured links to public clients."""
+        return obj.enabled_social_links
