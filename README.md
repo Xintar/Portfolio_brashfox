@@ -272,20 +272,41 @@ DATABASES = {
     }
 }
 
-# Security
+# Secret key
 SECRET_KEY = 'your-secret-key-here'
-DEBUG = True  # False in production
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 # Email (optional)
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 ```
 
+For production, configure the Django security settings through environment
+variables:
+
+```text
+DJANGO_DEBUG=False
+DJANGO_ALLOWED_HOSTS=portfolio.example.com,api.example.com
+DJANGO_SECURE_PROXY_SSL_HEADER=True
+DJANGO_CORS_ALLOWED_ORIGINS=https://portfolio.example.com
+DJANGO_CSRF_TRUSTED_ORIGINS=https://portfolio.example.com
+DJANGO_SECURE_HSTS_SECONDS=0
+```
+
+When `DJANGO_DEBUG=False`, HTTPS redirects and secure session/CSRF cookies are
+enabled by default. Enable `DJANGO_SECURE_PROXY_SSL_HEADER` only behind a
+trusted proxy that overwrites `X-Forwarded-Proto`. Keep HSTS at `0` until HTTPS
+is working reliably for the domain; then configure a suitable positive value.
+For a separately hosted React frontend, set `VITE_API_URL` and
+`VITE_MEDIA_URL` to `https://...` URLs before building. If frontend and API
+share an origin, the frontend uses the relative `/api` path by default.
+
 ---
 
 ## 🚢 Deployment
 
-*Coming soon: Docker, nginx, gunicorn configuration*
+Configure the hosting provider to serve the React frontend over HTTPS and run
+Django behind a trusted HTTPS reverse proxy. Make sure the proxy sets
+`X-Forwarded-Proto`, and provide the production host, CORS, and CSRF origins in
+the environment.
 
 ---
 
