@@ -5,6 +5,7 @@
         <meta charset="utf-8">
         <title>{% block title %}{% endblock %} | Fox Brush Marta Chojecka</title>
         <link rel="stylesheet" href="{% static 'styles.css' %}">
+        <link rel="stylesheet" href="{% static 'css/footer.css' %}">
     </head>
     <body>
         <div class="logo"><a href="/">
@@ -34,6 +35,7 @@
         </table>
 
         {% block content %}Start{% endblock %}
-        {% block footer %}{% endblock %}
+        
+        {% include 'partials/footer.html' %}
     </body>
 </html>
