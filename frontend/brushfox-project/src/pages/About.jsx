@@ -14,7 +14,11 @@ const About = () => {
         setAboutData(response.data);
         setLoading(false);
       } catch (err) {
-        setError(err.message);
+        if (err.response?.status === 404) {
+          setError('Treść strony „O mnie” nie została jeszcze dodana. Uzupełnij ją w panelu administratora Django.');
+        } else {
+          setError(err.response?.data?.detail || err.message);
+        }
         setLoading(false);
       }
     };

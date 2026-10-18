@@ -80,6 +80,12 @@ Aplikacja wymaga działającego Django backend API. Upewnij się że:
 2. CORS jest poprawnie skonfigurowany
 3. Wszystkie endpointy API są dostępne
 
+W produkcji frontend i API powinny być dostępne przez HTTPS. Przed budowaniem
+ustaw `VITE_API_URL` i `VITE_MEDIA_URL` na adresy `https://...`, jeśli backend
+działa pod inną domeną. Gdy frontend i backend współdzielą domenę, domyślny
+adres API to względne `/api`. Po stronie Django ustaw domenę frontendu w
+`DJANGO_CORS_ALLOWED_ORIGINS` i `DJANGO_CSRF_TRUSTED_ORIGINS`.
+
 ## 📝 Endpointy API
 
 - `/api/posts/` - Lista i tworzenie postów

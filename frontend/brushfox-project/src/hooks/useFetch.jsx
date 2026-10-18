@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import { getErrorMessage } from '../utils/helpers';
 
-export const useFetch = (fetchFunction, dependencies = []) => {
+const EMPTY_DEPENDENCIES = [];
+
+export const useFetch = (fetchFunction, dependencies = EMPTY_DEPENDENCIES) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
