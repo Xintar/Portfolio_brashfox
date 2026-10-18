@@ -5,6 +5,26 @@ from rest_framework.test import APIClient
 
 from brashfox_app.admin import AboutMeAdmin
 from brashfox_app.models import AboutMe
+from brashfox_app.models.about import SOCIAL_PLATFORM_CHOICES
+
+
+def test_about_admin_exposes_every_social_platform():
+    admin_form = AboutMeAdmin(AboutMe, admin.site).get_form(
+        RequestFactory().get('/admin/')
+    )
+
+    for platform, _ in SOCIAL_PLATFORM_CHOICES:
+        assert f'{platform}_url' in admin_form.base_fields
+        assert f'{platform}_enabled' in admin_form.base_fields
+
+    fieldset_fields = [
+        field
+        for _, options in AboutMeAdmin(AboutMe, admin.site).fieldsets
+        for field in options['fields']
+    ]
+    for platform, _ in SOCIAL_PLATFORM_CHOICES:
+        assert f'{platform}_url' in fieldset_fields
+        assert f'{platform}_enabled' in fieldset_fields
 
 
 @pytest.mark.django_db

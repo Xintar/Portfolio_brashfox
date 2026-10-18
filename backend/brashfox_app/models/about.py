@@ -13,6 +13,18 @@ SOCIAL_PLATFORM_CHOICES = (
     ('pinterest', 'Pinterest'),
     ('linkedin', 'LinkedIn'),
     ('x', 'X'),
+    ('threads', 'Threads'),
+    ('snapchat', 'Snapchat'),
+    ('twitch', 'Twitch'),
+    ('vimeo', 'Vimeo'),
+    ('behance', 'Behance'),
+    ('telegram', 'Telegram'),
+    ('whatsapp', 'WhatsApp'),
+    ('spotify', 'Spotify'),
+    ('discord', 'Discord'),
+    ('reddit', 'Reddit'),
+    ('github', 'GitHub'),
+    ('website', 'Strona WWW'),
 )
 
 
